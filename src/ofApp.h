@@ -1,9 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Mesh.h"
+#include "MyMesh.h"
 using namespace glm;
-class Mesh;
+class MyMesh;
 class ofApp : public ofBaseApp{
 
 	public:

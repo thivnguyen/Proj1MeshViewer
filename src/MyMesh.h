@@ -1,5 +1,5 @@
 //
-//  Mesh.h
+//  MyMesh.h
 //  Proj1MeshViewer
 //
 //  Created by Thi Nguyen  on 9/3/20.
@@ -13,9 +13,9 @@
 
 using namespace glm;
 
-class Mesh{
+class MyMesh{
 public:
-    Mesh (vector<vec3> v, vector<Triangle> t);
+    MyMesh (vector<vec3> v, vector<Triangle> t);
     void addVertice(vec3 &v);
     void addTriangle(Triangle &tri);
     void draw(); //iterate through all triangles and draw them

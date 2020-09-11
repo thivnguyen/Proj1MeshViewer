@@ -1,5 +1,5 @@
 #include "ofApp.h"
-#include "Mesh.h"
+#include "MyMesh.h"
 #include "Triangle.h"
 #include <fstream>
 using namespace glm;
@@ -34,7 +34,7 @@ void ofApp::draw(){
     triangles.push_back(Triangle(1,2,4));
     triangles.push_back(Triangle(0,4,2));
     
-    Mesh mesh (vertices, triangles);
+    MyMesh mesh (vertices, triangles);
 
     mesh.draw();
     cam.end();
@@ -56,7 +56,6 @@ void ofApp::drawAxis(){
     
     ofSetColor(ofColor::white);
 }
-
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
