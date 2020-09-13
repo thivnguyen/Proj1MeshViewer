@@ -24,5 +24,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
         void drawAxis();
+        void readFromOBJFile(MyMesh &mesh);
+
         ofEasyCam cam;
 };

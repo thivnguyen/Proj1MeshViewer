@@ -22,6 +22,7 @@ void MyMesh::draw(){
         int* indexes = t.getIndexes();
         
         ofNoFill(); //don't fill in triangles
+        
         //draw triangle
         ofDrawTriangle(vertices.at(indexes[0]),vertices.at(indexes[1]),vertices.at(indexes[2]));
     }
