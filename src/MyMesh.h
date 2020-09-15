@@ -15,10 +15,13 @@ using namespace glm;
 
 class MyMesh{
 public:
+    MyMesh();
     MyMesh (vector<vec3> v, vector<Triangle> t);
     void addVertice(vec3 &v);
     void addTriangle(Triangle &tri);
     void draw(); //iterate through all triangles and draw them
+    void printMeshInfo();
+    void testMesh();
     
 private:
     vector<vec3> vertices; //vertices

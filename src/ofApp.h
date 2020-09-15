@@ -24,7 +24,9 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
         void drawAxis();
-        void readFromOBJFile(MyMesh &mesh);
+        void readFromOBJFile(string path);
 
+private:
         ofEasyCam cam;
+        MyMesh createdMesh;
 };
