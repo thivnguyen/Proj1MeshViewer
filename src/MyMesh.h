@@ -2,7 +2,7 @@
 //  MyMesh.h
 //  Proj1MeshViewer
 //
-//  Created by Thi Nguyen  on 9/3/20.
+//  Created by Thi Nguyen on 9/3/20.
 //
 
 #ifndef Mesh_h
@@ -19,8 +19,8 @@ public:
     MyMesh (vector<vec3> v, vector<Triangle> t);
     void addVertice(vec3 &v);
     void addTriangle(Triangle &tri);
-    void draw(); //iterate through all triangles and draw them
-    void printMeshInfo();
+    void draw();
+    void printMeshInfo(); 
     void testMesh();
     
 private:

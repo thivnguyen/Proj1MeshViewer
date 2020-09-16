@@ -2,7 +2,7 @@
 //  Triangle.h
 //  Proj1MeshViewer
 //
-//  Created by Thi Nguyen  on 9/3/20.
+//  Created by Thi Nguyen on 9/3/20.
 //
 
 #ifndef Triangle_h
@@ -14,7 +14,7 @@ public:
     int* getIndexes();
     
 private:
-    int indexes [3]; //index in vertices array
+    int indexes [3]; //stores 3 integers that indicate which index in vertices array are the triangle's coordinates
 };
 
 #endif /* Triangle_h */
