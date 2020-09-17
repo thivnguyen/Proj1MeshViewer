@@ -6,6 +6,8 @@ using namespace glm;
 using namespace std;
 //--------------------------------------------------------------
 void ofApp::setup(){
+    createdMesh.testMesh(); //always start by drawing pyramind
+    cout << "Please drag an OBJ file into the OF application in order to see it drawn!" << endl;
 }
 
 //--------------------------------------------------------------
@@ -17,10 +19,7 @@ void ofApp::update(){
 void ofApp::draw(){
     cam.begin();
     
-    //draw testMesh
-    //createdMesh.testMesh();
-    
-    //draw mesh that was read from obj file
+    //draw test mesh and draw mesh from obj file when file is dragged in
     createdMesh.draw();
     cam.end();
 }
@@ -77,85 +76,66 @@ void ofApp::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){
+    createdMesh.clear();
+    readFromOBJFile(dragInfo.files[0]);
+    cout << endl;
+    createdMesh.printMeshInfo();
+}
+//--------------------------------------------------------------
+void ofApp::readFromOBJFile(string path){
     fstream fin;
-    string path = dragInfo.files[0]; //path of file
     
     //open file
     fin.open(path);
-    
+
     //if file fails to open
     if (fin.fail()) {
-        cout << "Failed to open OBJ file" << endl;
+        cout << "Failed to open OBJ file with the path: " << path << endl;
     } else {
         //read until end of file
-        while (!fin.eof()) {
-            string line;
-            getline(fin, line); //read the line
-            int index = 0; //index in string
-            string word = "";
+        string line;
+        while (getline(fin, line)) {//read the line
+            istringstream iss (line);
+            string word;
+            iss >> word;
             
-            //find out if it is a vertice or face
-            while (line[index] != ' ' && line[index] != '\0'){
-                word += line[index];
-                index++;
-            }
-            
-            //if it is a vertice
             if (word == "v"){
-                //split numbers up and create new vector
-                string numAsString = "";
-                vector <float> numbers; //store 3 values that will be added as a coordinate
-                
-                //go through string
-                for (int i = index + 1; i < line.size();i++){
-                    if (line[i] != ' '){ //concatenate numbers until space is found
-                        numAsString += line[i];
-                    }
-                    else{
-                        numbers.push_back(stod(numAsString)); //convert string to double
-                        numAsString = ""; //reset numAsString to an empty string
-                    }
-                }
-                numbers.push_back(stod(numAsString)); //push in last number
-                
-                //create and add vertice to mesh's vertices vector
-                vec3 newVertice (numbers.at(0),numbers.at(1), numbers.at(2));
+                double x, y, z;
+                iss >> x >> y >> z;
+                vec3 newVertice (x,y,z);
                 createdMesh.addVertice(newVertice);
             }
-            
+
             //if it is a face
             //consider that face on file is in the form: f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3
             else if (word == "f"){
-            
+                string group1, group2, group3;
                 //we are only caring about vertice indices. That means we only want v1, v2, v3
-                string numAsString = "";
-                bool first = true; //indicates that number is the first one in the group of numbers
-                vector<int> vertexIndices; //store 3 vertex indices that will be used to create triangle
+                string numAsString;
                 
-                //search for v1, v2, v3 value
-                for (int i = index + 1; i < line.size();i++){
-                    if (line[i]!='/' && line[i]!=' '){ //concatenate numbers until space or / is found
-                        numAsString += line[i];
-                    }
-                    else{
-                        //if it is a space, that means we are starting to read next group of numbers
-                        if(line[i] == ' '){
-                            numAsString = "";
-                            first = true;
-                        }else{
-                            //push first vertex index into vertexIndices vector
-                            if (first){
-                                vertexIndices.push_back(stoi(numAsString)-1);
-                                first = false;
-                            }
-                        }
-                    }
+                iss >> group1 >> group2 >> group3;
+            
+                int ind1, ind2, ind3;
+                if (group1.find_first_of('/') != -1){ //if face values are written with /
+                    string ind1AsString = group1.substr(0,group1.find_first_of('/'));
+                    string ind2AsString = group2.substr(0,group2.find_first_of('/'));
+                    string ind3AsString = group3.substr(0,group3.find_first_of('/'));
+                    
+                    ind1 = stoi(ind1AsString) - 1;
+                    ind2 = stoi(ind2AsString) - 1;
+                    ind3 = stoi(ind3AsString) - 1;
                 }
-                
+                else{ //if face values are written without vt and vn
+                    ind1 = stoi(group1) - 1;
+                    ind2 = stoi(group2) - 1;
+                    ind3 = stoi(group3) - 1;
+                }
+
                 //create and add new Triangle to mesh's triangle vector
-                Triangle newTriangle (vertexIndices.at(0),vertexIndices.at(1), vertexIndices.at(2));
+                Triangle newTriangle (ind1, ind2, ind3);
                 createdMesh.addTriangle(newTriangle);
             }
         }
     }
+    fin.close();
 }

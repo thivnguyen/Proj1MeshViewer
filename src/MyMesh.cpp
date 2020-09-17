@@ -47,8 +47,10 @@ void MyMesh::draw(){
 }
 
 void MyMesh::printMeshInfo(){
-    cout << "Total # of vertices: " << vertices.size(); //prints out # of vertices
-    cout << "Total # of faces: " << triangles.size(); //prints out # of faces
+    cout << "Mesh Information: " << endl;
+    cout << "Total # of vertices: " << vertices.size() << endl; //prints out # of vertices
+    cout << "Total # of faces: " << triangles.size() << endl; //prints out # of faces
+    cout << "Mesh size (kB): " << sizeof(Triangle) * triangles.size()  * 0.001 << endl; //prints our size of Mesh in kB
     
 }
 
@@ -56,35 +58,29 @@ void MyMesh::printMeshInfo(){
 void MyMesh::testMesh(){
     
     //add vertices
-    vector<vec3> vertices;
     vertices.push_back(vec3(5,0,0)); //index 0
     vertices.push_back(vec3(-5,0,0)); //index 1
     vertices.push_back(vec3(0,-5,0)); //index 2
     vertices.push_back(vec3(0,5,0)); //index 3
     vertices.push_back(vec3(0,0,5)); //index 4
-    vertices.push_back(vec3(0,0,-5)); //index 5
     
     //add triangles
-    vector<Triangle> triangles;
     //base of pyramid
-    triangles.push_back(Triangle(0,3,4));
-    triangles.push_back(Triangle(0,4,2));
-    
-    //upper pyramid
     triangles.push_back(Triangle(0,3,2));
     triangles.push_back(Triangle(3,1,2));
+    
+    //upper pyramid
+    triangles.push_back(Triangle(0,3,4));
+    triangles.push_back(Triangle(0,4,2));
     triangles.push_back(Triangle(3,1,4));
     triangles.push_back(Triangle(1,2,4));
     
-    //lower pyramid
-    triangles.push_back(Triangle(0,5,3));
-    triangles.push_back(Triangle(3,5,1));
-    triangles.push_back(Triangle(0,5,2));
-    triangles.push_back(Triangle(2,1,5));
+    printMeshInfo();
     
-    //create Mesh
-    MyMesh testMesh (vertices, triangles);
-    
-    //draw Mesh
-    testMesh.draw();
+}
+
+//read from obj file
+void MyMesh::clear(){
+    vertices.clear();
+    triangles.clear();
 }

@@ -22,6 +22,7 @@ public:
     void draw();
     void printMeshInfo(); 
     void testMesh();
+    void clear();
     
 private:
     vector<vec3> vertices; //vertices
