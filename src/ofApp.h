@@ -1,9 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
-#include "MyMesh.h"
+#include "Mesh.h"
 using namespace glm;
-class MyMesh;
+class Mesh;
 class ofApp : public ofBaseApp{
 
 	public:
@@ -24,8 +24,9 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
         void readFromOBJFile(string path);
-
+        void drawAxis();
+    
 private:
         ofEasyCam cam;
-        MyMesh createdMesh;
+        Mesh createdMesh;
 };
