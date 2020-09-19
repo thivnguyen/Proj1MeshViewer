@@ -1,3 +1,10 @@
+//
+//  ofApp.cpp
+//  Proj1MeshViewer
+//
+//  Last edited by Thi Nguyen on 9/17/20.
+//
+
 #include "ofApp.h"
 #include "Mesh.h"
 #include "Triangle.h"
@@ -112,9 +119,10 @@ void ofApp::readFromOBJFile(string path){
     //open file
     fin.open(path);
 
-    //if file fails to open
+    //if file fails to open, print error message + return
     if (fin.fail()) {
         cout << "Failed to open OBJ file with the pathname: " << path << endl;
+        return;
     }
     //if file successfully opens
     else {

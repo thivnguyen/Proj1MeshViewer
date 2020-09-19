@@ -1,3 +1,10 @@
+//
+//  ofApp.h
+//  Proj1MeshViewer
+//
+//  Last edited by Thi Nguyen on 9/17/20.
+//
+
 #pragma once
 
 #include "ofMain.h"

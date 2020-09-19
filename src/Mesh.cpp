@@ -3,7 +3,8 @@
 //  Proj1MeshViewer
 //
 //  Created by Thi Nguyen on 9/2/20.
-//
+//  Last edited by Thi Nguyen on 9/18/20.
+
 
 #include "Mesh.h"
 using namespace glm;
@@ -47,11 +48,13 @@ void Mesh::draw(){
 }
 
 void Mesh::printMeshInfo(){
+    int numVertices = vertices.size();
+    int numFaces = triangles.size();
     cout << "Mesh Information: " << endl;
-    cout << "Total # of vertices: " << vertices.size() << endl; //prints out # of vertices
-    cout << "Total # of faces: " << triangles.size() << endl; //prints out # of faces
-    cout << "Mesh size (kB): " << sizeof(Triangle) * triangles.size()  * 0.001 << endl; //prints our size of Mesh in kB
-    
+    cout << "Total # of vertices: " << numVertices << endl; //prints out # of vertices
+    cout << "Total # of faces: " << numFaces << endl; //prints out # of faces
+    //prints our size of Mesh in kB
+    cout << "Mesh size (kB): " << ((sizeof(vec3) * numVertices) + (sizeof(Triangle) * numFaces))  * 0.001 << endl;
 }
 
 //Draw two pyramids that share the same square base

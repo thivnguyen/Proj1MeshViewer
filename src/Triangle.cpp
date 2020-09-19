@@ -3,7 +3,7 @@
 //  Proj1MeshViewer
 //
 //  Created by Thi Nguyen on 9/3/20.
-//
+//  Last edited by Thi Nguyen on 9/17/20.
 
 #include <stdio.h>
 #include "Triangle.h"
